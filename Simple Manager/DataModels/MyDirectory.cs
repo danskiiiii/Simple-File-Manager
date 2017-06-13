@@ -20,7 +20,6 @@ namespace Simple_Manager.DataModels
             this.dirPath = dirPath;
         }
 
-
         public override DateTime CreationTime
         {
             get
@@ -28,6 +27,7 @@ namespace Simple_Manager.DataModels
                 return Directory.GetCreationTime(dirPath);
             }
         }
+
         string name;
         public override string Name
         {
@@ -36,6 +36,7 @@ namespace Simple_Manager.DataModels
                 return name = System.IO.Path.GetFileName(dirPath);
             }
         }
+
         /// <summary>
         ///Method returns list of all files in directory
         /// </summary>        
@@ -51,6 +52,7 @@ namespace Simple_Manager.DataModels
             return result;
 
         }
+
         /// <summary>
         ///Method returns list of subdirectories
         /// </summary>
@@ -76,6 +78,7 @@ namespace Simple_Manager.DataModels
             result.AddRange(GetAllFiles());
             return result;
         }
+
         /// <summary>
         ///Method returns list of files and subdirectories in a directory, sorted by name
         /// </summary>
