@@ -56,7 +56,6 @@ namespace Simple_Manager
             }
         }
 
-
         private void DiskElementView_chechedChange()
         {
         }
@@ -209,8 +208,10 @@ namespace Simple_Manager
                     diskElementView.fileDeleted += DiskElementViewFileDeleted;
                     diskElementView.chechedChange += DiskElementView_chechedChange;
                     diskElementView.openSubLeft += DiskElementView_openSubLeft;
-                       
-                    }
+                    diskElementView.previewContentRight += DiskElementViewPreviewContent_onRight;
+
+
+                }
             }
             catch (Exception ex) { MessageBox.Show("WYSTĄPIŁ BŁĄD: " + Environment.NewLine + Convert.ToString(ex)); }
         }
@@ -234,7 +235,8 @@ namespace Simple_Manager
                     diskElementView.fileDeleted += DiskElementViewFileDeleted;
                     diskElementView.chechedChange += DiskElementView_chechedChange;
                     diskElementView.openSubLeft += DiskElementView_openSubLeft;
-                       
+                    diskElementView.previewContentRight += DiskElementViewPreviewContent_onRight;
+
                     }
                 }
                 catch (Exception ex) { MessageBox.Show("WYSTĄPIŁ BŁĄD: " + Environment.NewLine + Convert.ToString(ex)); }
@@ -260,22 +262,19 @@ namespace Simple_Manager
             DiskElementView diskElementView = new DiskElementView(diskElement);
            if( (Convert.ToString(diskElementView.preview_button.Tag)== "image"))
            { leftImgView.Source = new BitmapImage(new Uri(diskElement.Path));
-                leftStackPanel.Children.Clear();                   
-                leftStackPanel.Children.Add(leftImgView);
+                RefreshFilesList_left(leftCurrentPath.Text);
+                leftStackPanel.Children.Insert(0,leftImgView);
                 leftScroll.ScrollToTop();
             }
             if ((Convert.ToString(diskElementView.preview_button.Tag) == "text"))
             {
                 Paragraph paragraph = new Paragraph();
-
                 paragraph.Inlines.Add(System.IO.File.ReadAllText(Convert.ToString(diskElement.Path)));
-
                 FlowDocument document = new FlowDocument(paragraph);
                 leftReader.Document = document;
                 leftReader.Document.Background = (Brush)converter.ConvertFromString("white");
-
-                leftStackPanel.Children.Clear();
-                leftStackPanel.Children.Add(leftReader);
+                RefreshFilesList_left(leftCurrentPath.Text);
+                leftStackPanel.Children.Insert(0,leftReader);
                 leftScroll.ScrollToTop();
             }
 
@@ -450,6 +449,8 @@ namespace Simple_Manager
                         diskElementView.fileDeleted += DiskElementViewFileDeleted;
                         diskElementView.chechedChange += DiskElementView_chechedChange;                        
                         diskElementView.openSubRight += DiskElementView_openSubRight;
+                        diskElementView.previewContentLeft += DiskElementViewPreviewContent_onLeft;
+
                     }
                 }
                 catch (Exception ex) { MessageBox.Show("WYSTĄPIŁ BŁĄD: " + Environment.NewLine + Convert.ToString(ex)); }
@@ -475,8 +476,10 @@ namespace Simple_Manager
                         diskElementView.fileDeleted += DiskElementViewFileDeleted;
                         diskElementView.chechedChange += DiskElementView_chechedChange;                        
                         diskElementView.openSubRight += DiskElementView_openSubRight;
-                    }
+                        diskElementView.previewContentLeft += DiskElementViewPreviewContent_onLeft;
+
                 }
+            }
                 catch (Exception ex) { MessageBox.Show("WYSTĄPIŁ BŁĄD: "+Environment.NewLine + Convert.ToString(ex)); }
 
         }
@@ -549,8 +552,8 @@ namespace Simple_Manager
             if ((Convert.ToString(diskElementView.preview_button.Tag) == "image"))
             {
                 rightImgView.Source = new BitmapImage(new Uri( diskElement.Path));
-                rightStackPanel.Children.Clear();
-                rightStackPanel.Children.Add(rightImgView);
+                RefreshFilesList_right(rightCurrentPath.Text);
+                rightStackPanel.Children.Insert(0,rightImgView);
                 rightScroll.ScrollToTop();               
             }
 
@@ -563,8 +566,8 @@ namespace Simple_Manager
             
                 rightReader.Document = document;
                 rightReader.Document.Background = (Brush)converter.ConvertFromString("white");
-                rightStackPanel.Children.Clear();
-                rightStackPanel.Children.Add(rightReader);
+                RefreshFilesList_right(rightCurrentPath.Text);
+                rightStackPanel.Children.Insert(0,rightReader);
                 rightScroll.ScrollToTop();
             }
         }
