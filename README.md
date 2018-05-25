@@ -1,7 +1,8 @@
 ## Simple_File_Manager ##
 This WPF desktop app is my university project for OOP programming class.
 
-It provides basic functionalities of a "Total Commander" type of app: 
+It provides basic functionalities of a "Total Commander" type of app:
+
 browsing, removing, copying, viewing image and text files, creating directories.
 
 
